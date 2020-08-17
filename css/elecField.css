@@ -1,0 +1,22 @@
+canvas{
+	border: 1px solid black;
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+}
+
+.wrapper{
+	position:relative;
+}
+
+#layerOne, #layerTwo{
+	position:absolute; 
+	top:0px; left:0px;
+}
+
+.input{
+	position: absolute;
+	top: 0px; right: 0;
+}
