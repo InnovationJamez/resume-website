@@ -28,3 +28,45 @@ body {
 .title{
   color: white;
 }
+
+.right{
+  float: right;
+}
+
+.left{
+  display: inline-block;
+}
+
+.container{
+  padding: 20px;
+  margin: 20px;
+  border: 5px solid black;
+  background-color: white;
+}
+
+.info{
+  width: 500px;
+}
+
+.center{
+  align-self: center;
+}
+
+.mazeContent{
+  width:100%;
+}
+
+.mazeButton{
+  outline: none;
+  border: none;
+  width: 30%;
+}
+
+.mazeButton:hover, active{
+  background-color: blue;
+}
+
+canvas{
+  border: 1px solid black;
+  background-color: black;
+}
