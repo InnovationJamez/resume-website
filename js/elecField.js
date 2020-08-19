@@ -48,11 +48,11 @@ function start(){
 	dim =  parseFloat($("#dim").val());
 
 	// set the dimensions of layer one
-	layerOne.width = window.innerWidth * 0.8;
+	layerOne.width = window.innerWidth * 0.75;
 	layerOne.height = window.innerHeight * 0.99;
 
 	// et the dimension of layer two
-	layerTwo.width = window.innerWidth * 0.8;
+	layerTwo.width = window.innerWidth * 0.75;
 	layerTwo.height = window.innerHeight * 0.99;
 
 	/*

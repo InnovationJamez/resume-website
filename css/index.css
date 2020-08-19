@@ -70,3 +70,11 @@ canvas{
   border: 1px solid black;
   background-color: black;
 }
+
+p{
+  word-wrap: normal;
+}
+
+video {
+  margin: 20px;
+}
