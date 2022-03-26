@@ -301,9 +301,10 @@ function drawArrows(layerTwo){
 			var x = (i + 0.5) * wStep + minX;
 			var y = (j + 0.5) * hStep + minY;
 			// get angle
-			var angle = getElecField(getTheoX(x), getTheoY(y));
-			// draw field arrows
-			drawArrow(x, y, angle, 20, c2);
+			var arrow = getElecField(getTheoX(x), getTheoY(y));
+			// draw field arrows if mag > 0
+			if(arrow.mag > 0)
+				drawArrow(x, y, arrow.mag, arrow.angle, 20, c2);
 		}
 	}
 }
@@ -312,38 +313,47 @@ function drawArrows(layerTwo){
 
 /*
 	draw an arrow at set locaion and in set direction
+	x: x position
+	y: y position
+	mag: length of arrow
+	angle: angle of arrow
+	c2: canvas
 */
-function drawArrow(x, y, angle, r, c2){
+function drawArrow(x, y, mag, angle, r, c2){
+
+	// get the len from mag
+	let len = Math.sqrt(Math.cbrt(mag));
+
 	// arrow head ends value
 	var arEnd = Math.PI * 0.40;
 	// begin path
 	c2.beginPath();
 	// tip fo arrow of arrow
-	c2.lineTo(Math.cos(angle) * r + x, Math.sin(angle) * r + y);
+	c2.lineTo(len * Math.cos(angle) * r + x, len * Math.sin(angle) * r + y);
 	// arrow head right
-	c2.lineTo(Math.cos(angle + arEnd) * r * 0.4 + x, Math.sin(angle + arEnd) * r * 0.4 + y);
+	c2.lineTo(len * Math.cos(angle + arEnd) * r * 0.4 + x, len * Math.sin(angle + arEnd) * r * 0.4 + y);
 
 	// arrow base right
-	c2.lineTo(Math.cos(angle + Math.PI * 0.14) * r * 0.3 + x, 
-		Math.sin(angle + Math.PI * 0.14) * r * 0.3 + y);
+	c2.lineTo(len * Math.cos(angle + Math.PI * 0.14) * r * 0.3 + x, 
+	len * Math.sin(angle + Math.PI * 0.14) * r * 0.3 + y);
 	
 	// arrow stem right
-	c2.lineTo(Math.cos(angle + Math.PI * 0.95) * r + x, 
-		Math.sin(angle + Math.PI * 0.95) * r + y);
+	c2.lineTo(len * Math.cos(angle + Math.PI * 0.95) * r + x, 
+	len * Math.sin(angle + Math.PI * 0.95) * r + y);
 	// arrow stem left 
-	c2.lineTo(Math.cos(angle + Math.PI * 1.05) * r + x, 
-		Math.sin(angle + Math.PI * 1.05) * r + y);
+	c2.lineTo(len * Math.cos(angle + Math.PI * 1.05) * r + x, 
+	len * Math.sin(angle + Math.PI * 1.05) * r + y);
 
 	// arrow base left
-	c2.lineTo(Math.cos(angle - Math.PI * 0.14) * r * 0.3 + x, 
-		Math.sin(angle - Math.PI * 0.14) * r * 0.3 + y);
+	c2.lineTo(len * Math.cos(angle - Math.PI * 0.14) * r * 0.3 + x, 
+	len * Math.sin(angle - Math.PI * 0.14) * r * 0.3 + y);
 
 	// arrow head left
-	c2.lineTo(Math.cos(angle - arEnd) * r * 0.4 + x, 
-		Math.sin(angle - arEnd) * r * 0.4 + y);
+	c2.lineTo(len * Math.cos(angle - arEnd) * r * 0.4 + x, 
+	len * Math.sin(angle - arEnd) * r * 0.4 + y);
 	
 	// back to the tip fo arrow of arrow
-	c2.lineTo(Math.cos(angle) * r + x, Math.sin(angle) * r + y);
+	c2.lineTo(len * Math.cos(angle) * r + x, len * Math.sin(angle) * r + y);
 	// fill in arrow
 	c2.fillStyle = "red";
 	c2.fill(); 
@@ -351,6 +361,7 @@ function drawArrow(x, y, angle, r, c2){
 	c2.lineWidth = 1;
 	c2.stroke();
 }
+
 
 /*
 	get two points and return the angle
@@ -449,6 +460,13 @@ function drawIons(layerTwo){
 function getElecField(x, y){
 	// x and y components of e field
 	var xList = [], yList = [];
+
+	// object for arrow
+	let arrow = {
+		angle:0,
+		mag:0
+	};
+
 	// for each ion add the components of the e field
 	ions.forEach(function(item, index){
 		// get the electric field magnitude
@@ -460,6 +478,7 @@ function getElecField(x, y){
 		// add y component
 		yList.push(Math.sin(a) * field);
 	});
+
 	// check the number of components
 	if(xList.length > 0){
 		// get the sum of x elements
@@ -467,15 +486,16 @@ function getElecField(x, y){
 		// get the sum of y elements
 		var sumY = yList.reduce((a, b) => a + b, 0);
 		// get the angle of the resulting field
-		var sumAngle = getTwoAngle(sumX, sumY);
+		arrow.angle = getTwoAngle(sumX, sumY);
+		// get the magnitude of the filed
+		arrow.mag = Math.sqrt(sumX ** 2 + sumY ** 2);
 		// return the value
-		return sumAngle;
+		return arrow;
 	}
 	// if no ions return o
 	else{
-		return 0;
+		return arrow;
 	}
-
 }
 
 /*

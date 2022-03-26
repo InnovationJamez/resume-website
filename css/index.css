@@ -1,80 +1,91 @@
-.collapsible{
-  width:100%;
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(241,0,0,1) 47%, rgba(0,212,255,1) 100%);
-  color: white;
-  text-align: left;
-  cursor: pointer;
-  padding: 18px;
-  outline: none;
-  border: none;
-  font-size: 15px;
+canvas {
+    background-color: black;
+    border: 1px solid black;
 }
 
-.active, .collapsible:hover{
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,241,1) 47%, rgba(0,212,255,1) 100%);
+body{
+  background-color: rgb(192, 192, 192);
 }
 
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #aaaaaa;
+.jumbotron{
+    background-color: gray;
+    border: 10px solid black;
+    border-radius: 10px;
+    margin: 5%;
 }
 
-body {
-  background: black;
+img{
+    margin:10px;
 }
 
-.title{
-  color: white;
+h1{
+    margin:10px;
 }
 
-.right{
-  float: right;
+.card-img-top{
+    height:fit-content;
 }
 
-.left{
-  display: inline-block;
+.flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+    margin: 20px;
 }
+  
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+  
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .flip-card-front {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border-radius: 20px;
+  }
+  
+  .flip-card-back {
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    transform: rotateY(180deg);
+    border-radius: 20px;
+  }
 
-.container{
-  padding: 20px;
-  margin: 20px;
-  border: 5px solid black;
-  background-color: white;
-}
+  img {
+    border-radius: 20px;
+  }
 
-.info{
-  width: 500px;
-}
+  .image{
+    height:200px;
+    width:min-content;
+  }
 
-.center{
-  align-self: center;
-}
 
-.mazeContent{
-  width:100%;
-}
+  .info{
+    padding-top: 20px;
+    text-align: center;
+  }
 
-.mazeButton{
-  outline: none;
-  border: none;
-  width: 30%;
-}
-
-.mazeButton:hover, active{
-  background-color: blue;
-}
-
-canvas{
-  border: 1px solid black;
-  background-color: black;
-}
-
-p{
-  word-wrap: normal;
-}
-
-video {
-  margin: 20px;
-}
+  ul {
+    list-style-type: none;
+    text-align:left;
+    padding-top: 20px;
+   }
